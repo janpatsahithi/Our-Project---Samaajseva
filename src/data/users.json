@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "NGO Shanti Foundation",
+    "role": "NGO",
+    "email": "ngo@seva.org",
+    "cis": 925,
+    "current_badge": "Verification Seal",
+    "badges": ["Verification Seal", "Resource Champion", "Quick Responder"],
+    "bio": "Working tirelessly in education and rural upliftment for 10 years."
+  },
+  {
+    "id": "2",
+    "name": "Donor Priya Sharma",
+    "role": "Donor",
+    "email": "donor@seva.com",
+    "cis": 780,
+    "current_badge": "Quick Responder",
+    "badges": ["Quick Responder", "Resource Champion"],
+    "bio": "Committed community volunteer focused on local food drives."
+  },
+  {
+    "id": "3",
+    "name": "New Donor Alex",
+    "role": "Donor",
+    "email": "alex@seva.com",
+    "cis": 150,
+    "current_badge": "New Contributor",
+    "badges": ["New Contributor"],
+    "bio": "New to the platform, eager to help in the Pune area."
+  }
+]
