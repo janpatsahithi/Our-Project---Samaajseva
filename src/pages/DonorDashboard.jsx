@@ -10,18 +10,42 @@ const DonorDashboard = () => {
   // Get the current user's committed needs (array of IDs)
   const donorCommittedIds = commitments[currentUser?.id] || [];
 
-  // 1. Calculate Priority and Filter for Open Requests
-  const allNeedsWithPriority = needs.map(n => ({ 
-      ...n, 
-      // Mock Priority Logic
-      priority: n.quantityCommitted < 10 ? 'HIGH' : (n.quantityCommitted < 50 ? 'MEDIUM' : 'LOW') 
-  })); 
-  
-  // Filter for requests that are not yet fulfilled
+  // 1) Compute mock priority and filter open requests
+  const allNeedsWithPriority = needs.map(n => ({
+    ...n,
+    priority: n.quantityCommitted < 10 ? 'HIGH' : (n.quantityCommitted < 50 ? 'MEDIUM' : 'LOW')
+  }));
   const openRequests = allNeedsWithPriority.filter(n => n.status !== 'fulfilled');
 
+  // 2) Domain filter state (category)
+  const [selectedDomain, setSelectedDomain] = React.useState('All');
+  const domains = React.useMemo(() => {
+    const set = new Set(['All']);
+    openRequests.forEach(n => { if (n.category) set.add(n.category); });
+    return Array.from(set);
+  }, [openRequests]);
+  const filteredByDomain = React.useMemo(() => (
+    selectedDomain === 'All' ? openRequests : openRequests.filter(n => n.category === selectedDomain)
+  ), [openRequests, selectedDomain]);
+
+  // 3) Sort state
+  const [sortBy, setSortBy] = React.useState('priority'); // 'priority' | 'date' | 'title'
+  const sortedRequests = React.useMemo(() => {
+    const arr = [...filteredByDomain];
+    if (sortBy === 'priority') {
+      const order = { HIGH: 0, MEDIUM: 1, LOW: 2 };
+      arr.sort((a, b) => (order[a.priority] ?? 3) - (order[b.priority] ?? 3));
+    } else if (sortBy === 'date') {
+      // Use id as a timestamp surrogate in mock data; newest first
+      arr.sort((a, b) => Number(b.id) - Number(a.id));
+    } else if (sortBy === 'title') {
+      arr.sort((a, b) => String(a.title).localeCompare(String(b.title)));
+    }
+    return arr;
+  }, [filteredByDomain, sortBy]);
+
   // Prepare table data structure
-  const tableData = openRequests.map(n => ({
+  const tableData = sortedRequests.map(n => ({
       id: n.id,
       description: n.title,
       status: n.priority,
@@ -69,13 +93,21 @@ const DonorDashboard = () => {
       
       <div className="requests-section">
         <h2 className="section-title">NGO Requests</h2>
-        <div className="requests-controls" style={{marginTop: '10px', marginBottom: '15px'}}>
-            <small style={{color: '#555'}}>Filter by domain:</small>
-            <select className="secondary-button" style={{padding: '8px 12px'}}>
-                <option>All Domains</option>
-                <option>Food</option>
-                <option>Volunteering</option>
+        <div className="requests-controls" style={{display:'flex', gap: '12px', alignItems:'center', marginTop: '10px', marginBottom: '15px'}}>
+          <div>
+            <small style={{color: '#555'}}>Domain:</small>
+            <select className="secondary-button" style={{padding: '8px 12px', marginLeft: '8px'}} value={selectedDomain} onChange={(e)=>setSelectedDomain(e.target.value)}>
+              {domains.map(d => (<option key={d} value={d}>{d}</option>))}
             </select>
+          </div>
+          <div>
+            <small style={{color: '#555'}}>Sort by:</small>
+            <select className="secondary-button" style={{padding: '8px 12px', marginLeft: '8px'}} value={sortBy} onChange={(e)=>setSortBy(e.target.value)}>
+              <option value="priority">Priority</option>
+              <option value="date">Date</option>
+              <option value="title">Title</option>
+            </select>
+          </div>
         </div>
 
         <div className="table-container">

@@ -19,7 +19,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
   const isDashboardActive = location.pathname.includes('dashboard');
   const isProfileActive = location.pathname === '/profile'; // <-- NEW: Check if Profile is active
-  const isPredictActive = location.pathname === '/predict-urgency';
+  
 
   return (
     <nav className="navbar">
@@ -33,9 +33,7 @@ const Navbar = () => {
         <Link to="/about" className={isActive('/about') ? 'active' : ''}>
             About
         </Link>
-        <Link to="/predict-urgency" className={isPredictActive ? 'active' : ''}>
-            Predict Urgency
-        </Link>
+        
         
         {isLoggedIn ? (
           <>

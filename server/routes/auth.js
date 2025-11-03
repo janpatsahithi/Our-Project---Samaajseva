@@ -6,10 +6,19 @@ const router = Router();
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
-  const { name, email, password, role } = req.body || {};
+  let { name, email, password, role } = req.body || {};
+  name = typeof name === 'string' ? name.trim() : '';
+  email = typeof email === 'string' ? email.trim() : '';
+  password = typeof password === 'string' ? password : '';
+  role = typeof role === 'string' ? role.trim() : '';
+
   if (!name || !email || !password || !role) {
     return res.status(400).json({ success: false, message: 'All fields are required.' });
   }
+  if (!['NGO', 'Donor'].includes(role)) {
+    return res.status(400).json({ success: false, message: "Role must be 'NGO' or 'Donor'." });
+  }
+
   try {
     const [[existing]] = await pool.query('SELECT id FROM users WHERE email = ?', [email]);
     if (existing) {
@@ -25,6 +34,12 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('Register error:', err);
+    if (err && err.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ success: false, message: 'Email already registered.' });
+    }
+    if (err && err.code === 'ER_TRUNCATED_WRONG_VALUE_FOR_FIELD') {
+      return res.status(400).json({ success: false, message: 'Invalid field value provided.' });
+    }
     return res.status(500).json({ success: false, message: 'Server error.' });
   }
 });

@@ -11,7 +11,6 @@ import Auth from './pages/Auth.jsx';
 import DonorDashboard from './pages/DonorDashboard.jsx';
 import NGODashboard from './pages/NGODashboard.jsx';
 import NotFound from './pages/NotFound.jsx';
-import UrgencyPrediction from './pages/UrgencyPrediction.jsx';
 import Profile from './pages/Profile.jsx'; // <--- NEW IMPORT for Profile Page
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -40,7 +39,6 @@ const AppContent = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/predict-urgency" element={<UrgencyPrediction />} />
           
           {/* 1. NEW ROUTE: Profile Page */}
           {/* We'll make the profile page accessible to all logged-in users */}
