@@ -23,11 +23,19 @@ const Auth = () => {
     setPassword('');
   };
 
+<<<<<<< HEAD
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     
     const result = await login(email, password);
+=======
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setError('');
+    
+    const result = login(email, password);
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
     
     if (result.success) {
       navigate(result.user.role === 'NGO' ? '/ngo-dashboard' : '/donor-dashboard');
@@ -36,13 +44,21 @@ const Auth = () => {
     }
   };
 
+<<<<<<< HEAD
   const handleRegister = async (e) => {
+=======
+  const handleRegister = (e) => {
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
     e.preventDefault();
     setError('');
     
     if (!name) { setError('Name is required.'); return; }
 
+<<<<<<< HEAD
     const result = await register(name, email, password, role);
+=======
+    const result = register(name, email, password, role);
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
     
     if (result.success) {
       navigate(result.user.role === 'NGO' ? '/ngo-dashboard' : '/donor-dashboard');

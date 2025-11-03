@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SamaajSeva Full-Stack Auth Backend (Node + MySQL)
 
 This project now includes a Node/Express backend for authentication with MySQL (XAMPP). Frontend calls `/api` which is proxied to `http://localhost:4000` during development.
@@ -7,6 +8,8 @@ Dev scripts:
 - Frontend: `npm run dev` (Vite)
 - Backend: `npm run server` (Express on port 4000)
 
+=======
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

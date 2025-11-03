@@ -10,6 +10,7 @@ const DonorDashboard = () => {
   // Get the current user's committed needs (array of IDs)
   const donorCommittedIds = commitments[currentUser?.id] || [];
 
+<<<<<<< HEAD
   // 1) Compute mock priority and filter open requests
   const allNeedsWithPriority = needs.map(n => ({
     ...n,
@@ -46,6 +47,20 @@ const DonorDashboard = () => {
 
   // Prepare table data structure
   const tableData = sortedRequests.map(n => ({
+=======
+  // 1. Calculate Priority and Filter for Open Requests
+  const allNeedsWithPriority = needs.map(n => ({ 
+      ...n, 
+      // Mock Priority Logic
+      priority: n.quantityCommitted < 10 ? 'HIGH' : (n.quantityCommitted < 50 ? 'MEDIUM' : 'LOW') 
+  })); 
+  
+  // Filter for requests that are not yet fulfilled
+  const openRequests = allNeedsWithPriority.filter(n => n.status !== 'fulfilled');
+
+  // Prepare table data structure
+  const tableData = openRequests.map(n => ({
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
       id: n.id,
       description: n.title,
       status: n.priority,
@@ -93,6 +108,7 @@ const DonorDashboard = () => {
       
       <div className="requests-section">
         <h2 className="section-title">NGO Requests</h2>
+<<<<<<< HEAD
         <div className="requests-controls" style={{display:'flex', gap: '12px', alignItems:'center', marginTop: '10px', marginBottom: '15px'}}>
           <div>
             <small style={{color: '#555'}}>Domain:</small>
@@ -108,6 +124,15 @@ const DonorDashboard = () => {
               <option value="title">Title</option>
             </select>
           </div>
+=======
+        <div className="requests-controls" style={{marginTop: '10px', marginBottom: '15px'}}>
+            <small style={{color: '#555'}}>Filter by domain:</small>
+            <select className="secondary-button" style={{padding: '8px 12px'}}>
+                <option>All Domains</option>
+                <option>Food</option>
+                <option>Volunteering</option>
+            </select>
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
         </div>
 
         <div className="table-container">

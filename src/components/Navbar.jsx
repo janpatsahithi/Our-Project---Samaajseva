@@ -19,7 +19,10 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
   const isDashboardActive = location.pathname.includes('dashboard');
   const isProfileActive = location.pathname === '/profile'; // <-- NEW: Check if Profile is active
+<<<<<<< HEAD
   
+=======
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
 
   return (
     <nav className="navbar">
@@ -34,7 +37,10 @@ const Navbar = () => {
             About
         </Link>
         
+<<<<<<< HEAD
         
+=======
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
         {isLoggedIn ? (
           <>
             {/* 1. NEW LINK: Profile Page */}

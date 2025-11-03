@@ -12,6 +12,7 @@ export default defineConfig({
     // node_modules, preventing duplicate React copies.
     dedupe: ['react', 'react-dom'],
   },
+<<<<<<< HEAD
   server: {
     proxy: {
       '/api': {
@@ -20,4 +21,6 @@ export default defineConfig({
       },
     },
   },
+=======
+>>>>>>> 478495b01bc8df75b4d600baa735740b0747ed5a
 });
